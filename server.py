@@ -1,10 +1,10 @@
 from fastmcp import FastMCP
 from fastapi import FastAPI
-from typing import List, Optional
+from typing import List, Optional, Any
 import oras
 
 
-mcp = FastMCP(name="fastmcp-skeleton")
+mcp = FastMCP(name="mcp-oci-registry")
 
 def ping() -> str:
 	"""
@@ -36,7 +36,7 @@ mcp.tool(ping)
 mcp.tool(list_oci_tags)
 
 # FastAPI application (HTTP)
-api = FastAPI(title="FastMCP + FastAPI")
+api = FastAPI(title="mcp-oci-registry")
 
 @api.get("/healthz")
 def healthz() -> dict:
@@ -53,6 +53,7 @@ asgi_app = api
 
 if __name__ == "__main__":
 	# Default: run in stdio mode for MCP clients
-	mcp.run()
+	# mcp.run()
+	mcp.run(transport="http", host="127.0.0.1", port=8888)
 
 
