@@ -3,7 +3,7 @@ HOST ?= 127.0.0.1
 PORT ?= 8888
 IMAGE ?= mcp-oci-registry
 
-.PHONY: install run docker-build docker-run compose-up compose-down compose-logs
+.PHONY: install run docker-build docker-run compose-up compose-down compose-logs test
 
 install:
 	pip install -r requirements.txt
@@ -25,5 +25,8 @@ compose-down:
 
 compose-logs:
 	docker compose logs -f
+
+test:
+	pytest -v
 
 
