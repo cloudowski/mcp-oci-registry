@@ -1,6 +1,5 @@
 from fastmcp import FastMCP
-from fastapi import FastAPI
-from typing import List, Optional, Any
+from typing import List, Optional
 import oras
 
 
@@ -35,21 +34,8 @@ def list_oci_tags(
 mcp.tool(ping)
 mcp.tool(list_oci_tags)
 
-# FastAPI application (HTTP)
-api = FastAPI(title="mcp-oci-registry")
-
-@api.get("/healthz")
-def healthz() -> dict:
-	"""
-	Liveness probe for HTTP server.
-	"""
-	return {"status": "ok"}
-
-# Mount MCP HTTP transport under /mcp
-api.mount("/mcp", mcp.http_app())
-
 # Expose ASGI app for uvicorn/gunicorn
-asgi_app = api
+asgi_app = mcp.http_app()
 
 if __name__ == "__main__":
 	# Default: run in stdio mode for MCP clients
