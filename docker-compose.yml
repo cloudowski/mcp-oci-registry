@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mcp-oci-registry:dev
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    command: >
+      uvicorn server:asgi_app
+      --host 0.0.0.0
+      --port 8000
+      --reload
+      --reload-dir /app
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    # Speeds up reloads by avoiding file watcher issues on some platforms
+    develop:
+      watch:
+        - path: .
+          target: /app
+          action: sync
+
+
