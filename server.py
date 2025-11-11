@@ -1,6 +1,6 @@
 from fastmcp import FastMCP
 from typing import List, Optional
-import oras
+import oras.client
 
 
 mcp = FastMCP(name="mcp-oci-registry")
@@ -18,7 +18,7 @@ def list_oci_tags(
 	password: Optional[str] = None,
 ) -> List[str]:
 	"""
-	List tags for an OCI repository using the oras Python module.
+	List tags for an OCI repository.
 	Args:
 	- registry: e.g. "ghcr.io", "registry-1.docker.io", "localhost:5000"
 	- repository: e.g. "owner/name" or "library/alpine"
@@ -28,7 +28,8 @@ def list_oci_tags(
 	client = oras.client.OrasClient()
 	if username and password:
 		client.login(registry, username=username, password=password)
-	return list(client.repo_tags(ref))
+	tags = client.get_tags(ref)
+	return list(tags)
 
 # Register tools with FastMCP without wrapping the function names
 mcp.tool(ping)
@@ -39,7 +40,7 @@ asgi_app = mcp.http_app()
 
 if __name__ == "__main__":
 	# Default: run in stdio mode for MCP clients
-	# mcp.run()
-	mcp.run(transport="http", host="127.0.0.1", port=8888)
+	mcp.run()
+	# mcp.run(transport="http", host="127.0.0.1", port=8888)
 
 

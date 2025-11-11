@@ -22,7 +22,7 @@ def test_list_oci_tags_without_auth(monkeypatch):
 			calls["init"] = True
 		def login(self, *args, **kwargs):
 			calls["login_called"] = True
-		def repo_tags(self, ref: str):
+		def get_tags(self, ref: str):
 			calls["ref"] = ref
 			return ["latest", "1.0.0"]
 
@@ -45,7 +45,7 @@ def test_list_oci_tags_with_auth(monkeypatch):
 	class FakeClient:
 		def login(self, registry: str, username: str, password: str):
 			calls["login"] = (registry, username, password)
-		def repo_tags(self, ref: str):
+		def get_tags(self, ref: str):
 			calls["ref"] = ref
 			return ["v2"]
 
