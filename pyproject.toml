@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp-oci-registry"
+version = "0.1.0"
+description = "A Model Context Protocol (MCP) server for querying OCI container registries"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+authors = [
+    {name = "Tomasz Cholewa", email = "tomasz@cloudowski.com"},
+]
+keywords = ["mcp", "oci", "registry", "docker", "containers", "fastmcp"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Archiving :: Packaging",
+]
+
+dependencies = [
+    "fastmcp>=2.3.0,<3.0",
+    "fastapi>=0.121.1,<1.0",
+    "uvicorn>=0.38,<1.0",
+    "oras>=0.2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3,<9.0",
+    "pytest-asyncio>=0.24,<1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/cloudowski/mcp-oci-registry"
+Documentation = "https://github.com/cloudowski/mcp-oci-registry#readme"
+Repository = "https://github.com/cloudowski/mcp-oci-registry"
+Issues = "https://github.com/cloudowski/mcp-oci-registry/issues"
+
+[tool.setuptools]
+py-modules = ["server", "tools", "prompts", "registry"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+asyncio_mode = "auto"
+addopts = [
+    "-v",
+    "--strict-markers",
+    "--tb=short",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 100
+

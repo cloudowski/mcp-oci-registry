@@ -1,5 +1,6 @@
 .venv
 __pycache__
+dist/
 .mypy_cache
 .pytest_cache
 .vscode
@@ -8,3 +9,4 @@ __pycache__
 .env.development.local
 .env.test.local
 .env.production.local
+*.egg-info/
