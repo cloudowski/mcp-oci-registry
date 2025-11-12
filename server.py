@@ -61,7 +61,7 @@ def list_oci_tags(
 	password: Optional[str] = None,
 ) -> List[str]:
 	"""
-	List tags for an OCI repository. Can be sued for any container registry, including Docker Hub.
+	List tags for an OCI repository. Can be used for any container registry, including Docker Hub.
 	Args:
 	- registry: e.g. "ghcr.io", "registry-1.docker.io", "localhost:5000"
 	- repository: e.g. "owner/name" or "library/alpine"
