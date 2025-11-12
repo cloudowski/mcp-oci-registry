@@ -3,13 +3,14 @@ HOST ?= 127.0.0.1
 PORT ?= 8888
 IMAGE ?= mcp-oci-registry
 
-.PHONY: install run run-stdio docker-build docker-run compose-up compose-down compose-logs test
+.PHONY: dependencies run-stdio run docker-build docker-run compose-up compose-down compose-logs test
 
-install:
+dependencies:
 	pip install -r requirements.txt
 
 run-stdio:
 	.venv/bin/python server.py
+
 run:
 	uvicorn $(APP_MODULE) --host $(HOST) --port $(PORT)
 
