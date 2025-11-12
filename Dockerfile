@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY . /app
 
-EXPOSE 8000
+EXPOSE 8888
 
 # Run FastAPI app via uvicorn, serving the MCP HTTP app mounted at /mcp
 CMD ["uvicorn", "server:asgi_app", "--host", "0.0.0.0", "--port", "8888"]
