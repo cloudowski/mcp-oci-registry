@@ -4,6 +4,7 @@ import pytest
 
 # Import the module under test
 import server
+import tools
 
 
 def test_ping_returns_pong():
@@ -30,8 +31,8 @@ def test_list_oci_tags_without_auth(monkeypatch):
 		class client(types.SimpleNamespace):
 			OrasClient = FakeClient
 
-	# Monkeypatch the oras module used inside server
-	monkeypatch.setattr(server, "oras", FakeOras)
+	# Monkeypatch the oras module used inside tools
+	monkeypatch.setattr(tools, "oras", FakeOras)
 
 	tags = server.list_oci_tags("example.com", "org/app")
 	assert tags == ["latest", "1.0.0"]
@@ -53,7 +54,7 @@ def test_list_oci_tags_with_auth(monkeypatch):
 		class client(types.SimpleNamespace):
 			OrasClient = FakeClient
 
-	monkeypatch.setattr(server, "oras", FakeOras)
+	monkeypatch.setattr(tools, "oras", FakeOras)
 
 	tags = server.list_oci_tags("ghcr.io", "owner/image", username="u", password="p")
 	assert tags == ["v2"]
